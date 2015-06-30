@@ -1,0 +1,24 @@
+diff --git a/Xtrans.c b/Xtrans.c
+index ae8ffad..963a904 100644
+--- a/Xtrans.c
++++ b/Xtrans.c
+@@ -53,6 +53,10 @@ from The Open Group.
+ #ifdef HAVE_SYSTEMD_DAEMON
+ #include <systemd/sd-daemon.h>
+ #endif
++#ifdef WIN32
++#include <X11/XWinsock.h>
++#endif
++
+ 
+ /*
+  * The transport table contains a definition for every transport (protocol)
+@@ -700,7 +704,7 @@ TRANS(SetOption) (XtransConnInfo ciptr, int option, int arg)
+ #if defined(WIN32)
+ 	{
+ #ifdef WIN32
+-	    u_long arg;
++	    unsigned long arg;
+ #else
+ 	    int arg;
+ #endif
