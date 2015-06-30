@@ -1,0 +1,47 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=xtrans
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=r240.7cbad9f
+pkgrel=1
+pkgdesc="X Network Transport layer shared code"
+arch=('any')
+url="http://cgit.freedesktop.org/xorg/lib/libxtrans/"
+license=("custom")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
+options=()
+depends=()
+source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libxtrans"
+        "0001-xtrans.patch")
+md5sums=('SKIP' '1241fce067064c1c049b5329033182a4')
+
+pkgver() {
+  cd "$srcdir/$_realname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd ${_realname}
+  patch -p1 -i ${srcdir}/0001-xtrans.patch
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  mkdir -p build-${MINGW_CHOST}
+  cd build-${MINGW_CHOST}
+  ../${_realname}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} 
+  make
+}
+
+package() {
+  cd build-${MINGW_CHOST}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}/${_realname}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+  install -Dm644 "${srcdir}/${_realname}/README" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+}

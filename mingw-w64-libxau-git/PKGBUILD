@@ -1,0 +1,47 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=libxau
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=r100.1e4635b
+pkgrel=1
+pkgdesc="X11 authorisation library"
+arch=('any')
+url="http://cgit.freedesktop.org/xorg/lib/libXau/"
+license=("custom")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-xorg-util-macros" "${MINGW_PACKAGE_PREFIX}-x11proto")
+options=(strip staticlibs)
+depends=("${MINGW_PACKAGE_PREFIX}-x11proto")
+source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXau")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_realname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd ${_realname}
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  mkdir -p build-${MINGW_CHOST}
+  cd build-${MINGW_CHOST}
+  ../${_realname}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} \
+    --enable-static \
+    --enable-shared
+  make
+}
+
+package() {
+  cd build-${MINGW_CHOST}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}/${_realname}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+  install -Dm644 "${srcdir}/${_realname}/README" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+}

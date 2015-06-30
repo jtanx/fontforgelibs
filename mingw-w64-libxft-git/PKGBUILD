@@ -1,0 +1,53 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=libxft
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=r99.e8a8322
+pkgrel=1
+pkgdesc="FreeType-based font drawing library for X"
+arch=('any')
+url="http://cgit.freedesktop.org/xorg/lib/libXft/"
+license=("custom")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
+             "${MINGW_PACKAGE_PREFIX}-libxrender"
+             "${MINGW_PACKAGE_PREFIX}-fontconfig")
+options=(strip staticlibs)
+depends=("${MINGW_PACKAGE_PREFIX}-libxrender"
+         "${MINGW_PACKAGE_PREFIX}-fontconfig")
+source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXft"
+        "0001-libxft.patch")
+md5sums=('SKIP' '26a33544f61a98f1901d128f86ab976e')
+
+pkgver() {
+  cd "$srcdir/$_realname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd ${_realname}
+  patch -p1 -i ${srcdir}/0001-libxft.patch
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  mkdir -p build-${MINGW_CHOST}
+  cd build-${MINGW_CHOST}
+  ../${_realname}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} \
+    --enable-static \
+    --enable-shared
+  make
+}
+
+package() {
+  cd build-${MINGW_CHOST}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}/${_realname}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+  install -Dm644 "${srcdir}/${_realname}/README" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+}

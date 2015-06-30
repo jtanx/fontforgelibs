@@ -1,0 +1,45 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=inputproto
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=r393.7c7c2c1
+pkgrel=1
+pkgdesc="X11 Input extension wire protocol"
+arch=('any')
+url="http://cgit.freedesktop.org/xorg/proto/inputproto/"
+license=("custom")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
+options=()
+depends=()
+source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/inputproto")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_realname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd ${_realname}
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  mkdir -p build-${MINGW_CHOST}
+  cd build-${MINGW_CHOST}
+  ../${_realname}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} 
+  make
+}
+
+package() {
+  cd build-${MINGW_CHOST}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}/${_realname}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+  install -Dm644 "${srcdir}/${_realname}/README" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+}

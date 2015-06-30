@@ -1,0 +1,61 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=libx11
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=r1270.26e0d2d
+pkgrel=1
+pkgdesc="X11 client-side library"
+arch=('any')
+url="http://cgit.freedesktop.org/xorg/lib/libX11/"
+license=("custom")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
+             "${MINGW_PACKAGE_PREFIX}-kbproto"
+             "${MINGW_PACKAGE_PREFIX}-inputproto"
+             "${MINGW_PACKAGE_PREFIX}-x11proto"
+             "${MINGW_PACKAGE_PREFIX}-xextproto"
+             "${MINGW_PACKAGE_PREFIX}-xf86bigfontproto"
+             "${MINGW_PACKAGE_PREFIX}-xtrans"
+             "${MINGW_PACKAGE_PREFIX}-libxcb")
+options=(strip staticlibs)
+depends=("${MINGW_PACKAGE_PREFIX}-kbproto"
+         "${MINGW_PACKAGE_PREFIX}-x11proto"
+         "${MINGW_PACKAGE_PREFIX}-libxcb")
+source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libX11"
+        "0001-libx11.patch")
+md5sums=('SKIP' 'bdaa5a40bb8835b590fb7c5540553672')
+
+pkgver() {
+  cd "$srcdir/$_realname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd ${_realname}
+  patch -p1 -i ${srcdir}/0001-libx11.patch
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  mkdir -p build-${MINGW_CHOST}
+  cd build-${MINGW_CHOST}
+  ../${_realname}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} \
+    --enable-static \
+    --enable-shared \
+    --disable-ipv6 \
+    --enable-xlocaledir
+  make
+}
+
+package() {
+  cd build-${MINGW_CHOST}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}/${_realname}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+  install -Dm644 "${srcdir}/${_realname}/README" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+}

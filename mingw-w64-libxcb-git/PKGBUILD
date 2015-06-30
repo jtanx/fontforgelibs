@@ -1,0 +1,77 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=libxcb
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=r643.5b40681
+pkgrel=1
+pkgdesc="The X C Binding (XCB) library"
+arch=('any')
+url="http://cgit.freedesktop.org/xcb/libxcb/"
+license=("custom")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-python2"
+             "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
+             "${MINGW_PACKAGE_PREFIX}-xcb-proto"
+             "${MINGW_PACKAGE_PREFIX}-libxau")
+options=(strip staticlibs)
+depends=("${MINGW_PACKAGE_PREFIX}-xcb-proto" "${MINGW_PACKAGE_PREFIX}-libxau")
+source=("${_realname}"::"git+git://anongit.freedesktop.org/xcb/libxcb"
+        "0001-libxcb.patch")
+md5sums=('SKIP' 'a537153160d586f7c85aed249be03fe4')
+
+pkgver() {
+  cd "$srcdir/$_realname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd ${_realname}
+  patch -p1 -i ${srcdir}/0001-libxcb.patch
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  mkdir -p build-${MINGW_CHOST}
+  cd build-${MINGW_CHOST}
+  LIBS="-lws2_32" ../${_realname}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} \
+    --enable-static \
+    --enable-shared \
+    --disable-xinerama \
+    --disable-composite \
+    --disable-damage \
+    --disable-dpms \
+    --disable-dri2 \
+    --disable-dri3 \
+    --disable-glx \
+    --disable-present \
+    --disable-randr \
+    --disable-record \
+    --disable-resource \
+    --disable-screensaver \
+    --disable-shape \
+    --disable-shm \
+    --disable-sync \
+    --disable-xevie \
+    --disable-xfixes \
+    --disable-xfree86-dri \
+    --disable-xinput \
+    --disable-xprint \
+    --disable-selinux \
+    --disable-xkb \
+    --disable-xtest \
+    --disable-xv \
+    --disable-xvmc
+  make
+}
+
+package() {
+  cd build-${MINGW_CHOST}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}/${_realname}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+  install -Dm644 "${srcdir}/${_realname}/README" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+}

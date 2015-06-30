@@ -1,0 +1,53 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=libxext
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=r198.efdcbb7
+pkgrel=1
+pkgdesc="X11 miscellaneous extensions library"
+arch=('any')
+url="http://cgit.freedesktop.org/xorg/lib/libXext/"
+license=("custom")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
+             "${MINGW_PACKAGE_PREFIX}-xextproto"
+             "${MINGW_PACKAGE_PREFIX}-libx11")
+options=(strip staticlibs)
+depends=("${MINGW_PACKAGE_PREFIX}-xextproto"
+         "${MINGW_PACKAGE_PREFIX}-libx11")
+source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXext"
+        "0001-libxext.patch")
+md5sums=('SKIP' '929224bb6ea90f6f91b733873e835d31')
+
+pkgver() {
+  cd "$srcdir/$_realname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd ${_realname}
+  patch -p1 -i ${srcdir}/0001-libxext.patch
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  mkdir -p build-${MINGW_CHOST}
+  cd build-${MINGW_CHOST}
+  ../${_realname}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} \
+    --enable-static \
+    --enable-shared
+  make
+}
+
+package() {
+  cd build-${MINGW_CHOST}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}/${_realname}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+  install -Dm644 "${srcdir}/${_realname}/README" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+}
