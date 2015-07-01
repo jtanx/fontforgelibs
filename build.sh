@@ -1,4 +1,20 @@
 #!/bin/bash
+# To update repo databases:
+# repo-add --verify --sign --new ./fontforgelibs32.db.tar.gz *.xz
+# repo-add --verify --sign --new ./fontforgelibs64.db.tar.gz *.xz
+#
+# To add repo:
+# Append to /etc/pacman.conf:
+# [fontforgelibs32]
+# Server = http://downloads.sourceforge.net/project/fontforgebuilds/build-system-extras/fontforgelibs/i686
+#
+# [fontforgelibs64]
+# Server = http://downloads.sourceforge.net/project/fontforgebuilds/build-system-extras/fontforgelibs/x86_64
+#
+# Add signature to key chain:
+# pacman-key -r 2E618C78
+# pacman-key --lsign-key 2E618C78
+
 
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -56,3 +72,5 @@ for dir in ${PACKAGES[*]}; do
         cd $BASE
     fi
 done
+
+log_note "Done."
