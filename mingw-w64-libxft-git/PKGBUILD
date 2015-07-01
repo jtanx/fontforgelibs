@@ -19,7 +19,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-libxrender"
          "${MINGW_PACKAGE_PREFIX}-fontconfig")
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXft"
         "0001-libxft.patch")
-md5sums=('SKIP' '26a33544f61a98f1901d128f86ab976e')
+md5sums=('SKIP' 'fb824dce44713465a0ede9786b7cdaf5')
 
 pkgver() {
   cd "$srcdir/$_realname"
