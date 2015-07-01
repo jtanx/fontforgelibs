@@ -1,0 +1,7 @@
+*.log
+*.log.*
+*.xz
+*.sig
+src/
+pkg/
+buildlog.txt
