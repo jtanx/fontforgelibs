@@ -1,0 +1,54 @@
+# Maintainer: Jeremy Tan <jtanx@outlook.com>
+
+_realname=pango
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-x11"
+pkgver=1.37.1
+pkgrel=1
+provides=("${MINGW_PACKAGE_PREFIX}-${_realname}=$pkgver-$pkgrel")
+conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgdesc="A library for layout and rendering of text (mingw-w64)"
+arch=('any')
+url="http://www.pango.org"
+license=(LGPL2.1 MPL1.1)
+makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-pkg-config"
+)
+depends=("${MINGW_PACKAGE_PREFIX}-gcc-libs"
+         "${MINGW_PACKAGE_PREFIX}-cairo-x11"
+         "${MINGW_PACKAGE_PREFIX}-libxft"
+         "${MINGW_PACKAGE_PREFIX}-freetype"
+         "${MINGW_PACKAGE_PREFIX}-fontconfig"
+         "${MINGW_PACKAGE_PREFIX}-glib2"
+         "${MINGW_PACKAGE_PREFIX}-harfbuzz"
+)
+options=('strip' 'staticlibs')
+source=("http://ftp.gnome.org/pub/gnome/sources/pango/${pkgver:0:4}/${_realname}-${pkgver}.tar.xz")
+sha256sums=('6faad8b5c347cccd454dc9ac9365f921c430e5f79787cfb2f51d5709f4394e3c')
+
+prepare() {
+    echo
+}
+
+build() {
+  mkdir -p "${srcdir}/build-${MINGW_CHOST}"
+  cd "${srcdir}/build-${MINGW_CHOST}"
+  
+  "${srcdir}"/${_realname}-${pkgver}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --enable-shared \
+    --enable-static \
+    --with-xft \
+    --with-cairo
+
+  make
+}
+
+package() {
+  cd "${srcdir}/build-${MINGW_CHOST}"
+  make DESTDIR="$pkgdir" install
+
+  install -Dm644 "${srcdir}/${_realname}-${pkgver}/README"  "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/README"
+  install -Dm644 "${srcdir}/${_realname}-${pkgver}/COPYING" "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+}
