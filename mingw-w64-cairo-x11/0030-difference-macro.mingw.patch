@@ -1,0 +1,14 @@
+diff -ruBw cairo-1.14.2/src/cairo-xcb-surface-render.c cairo-1.14.2-/src/cairo-xcb-surface-render.c
+--- cairo-1.14.2/src/cairo-xcb-surface-render.c	2015-03-11 06:21:07.000000000 +0800
++++ cairo-1.14.2-/src/cairo-xcb-surface-render.c	2015-05-19 08:47:14.242949600 +0800
+@@ -198,7 +198,10 @@
+     BLEND(COLOR_BURN, COLOR_BURN);
+     BLEND(HARD_LIGHT, HARD_LIGHT);
+     BLEND(SOFT_LIGHT, SOFT_LIGHT);
++#pragma push_macro("DIFFERENCE")
++#undef DIFFERENCE
+     BLEND(DIFFERENCE, DIFFERENCE);
++#pragma pop_macro("DIFFERENCE")
+     BLEND(EXCLUSION, EXCLUSION);
+     BLEND(HSL_HUE, HSL_HUE);
+     BLEND(HSL_SATURATION, HSL_SATURATION);

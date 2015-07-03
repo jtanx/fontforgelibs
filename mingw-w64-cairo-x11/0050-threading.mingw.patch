@@ -1,0 +1,24 @@
+diff -ruBw cairo-1.14.2/src/cairo-mutex-impl-private.h cairo-1.14.2-/src/cairo-mutex-impl-private.h
+--- cairo-1.14.2/src/cairo-mutex-impl-private.h	2015-03-11 06:21:07.000000000 +0800
++++ cairo-1.14.2-/src/cairo-mutex-impl-private.h	2015-05-19 08:46:05.821355300 +0800
+@@ -175,7 +175,7 @@
+ # define CAIRO_RECURSIVE_MUTEX_IMPL_INIT(mutex)
+ # define CAIRO_RECURSIVE_MUTEX_IMPL_NIL_INITIALIZER 0
+ 
+-#elif defined(_WIN32) /******************************************************/
++#elif defined(_WIN32) && !defined(__MINGW32__) /******************************************************/
+ 
+ #define WIN32_LEAN_AND_MEAN
+ /* We require Windows 2000 features such as ETO_PDY */
+diff -ruBw cairo-1.14.2/src/cairo-ps-surface.c cairo-1.14.2-/src/cairo-ps-surface.c
+--- cairo-1.14.2/src/cairo-ps-surface.c	2015-03-11 06:21:07.000000000 +0800
++++ cairo-1.14.2-/src/cairo-ps-surface.c	2015-05-19 08:46:38.710211400 +0800
+@@ -93,7 +93,7 @@
+ #define DEBUG_FALLBACK(s)
+ #endif
+ 
+-#ifndef HAVE_CTIME_R
++#if !defined(HAVE_CTIME_R) && !defined(__MINGW32__)
+ #define ctime_r(T, BUF) ctime (T)
+ #endif
+ 

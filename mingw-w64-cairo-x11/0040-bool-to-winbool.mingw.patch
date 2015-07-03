@@ -1,0 +1,12 @@
+diff -ruBw cairo-1.14.2/src/win32/cairo-win32-private.h cairo-1.14.2-/src/win32/cairo-win32-private.h
+--- cairo-1.14.2/src/win32/cairo-win32-private.h	2015-03-11 06:21:07.000000000 +0800
++++ cairo-1.14.2-/src/win32/cairo-win32-private.h	2015-05-19 08:47:34.787785300 +0800
+@@ -144,7 +144,7 @@
+ } cairo_win32_printing_surface_t;
+ #define to_win32_printing_surface(S) ((cairo_win32_printing_surface_t *)(S))
+ 
+-typedef BOOL (WINAPI *cairo_win32_alpha_blend_func_t) (HDC hdcDest,
++typedef WINBOOL (WINAPI *cairo_win32_alpha_blend_func_t) (HDC hdcDest,
+ 						       int nXOriginDest,
+ 						       int nYOriginDest,
+ 						       int nWidthDest,
