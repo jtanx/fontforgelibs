@@ -10,7 +10,10 @@ pkgdesc="X11 authorisation library"
 arch=('any')
 url="http://cgit.freedesktop.org/xorg/lib/libXau/"
 license=("custom")
-makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-xorg-util-macros" "${MINGW_PACKAGE_PREFIX}-x11proto")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-pkg-config"
+             "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
+             "${MINGW_PACKAGE_PREFIX}-x11proto")
 options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-x11proto")
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXau")

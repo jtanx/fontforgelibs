@@ -11,6 +11,7 @@ arch=('any')
 url="http://cgit.freedesktop.org/xorg/lib/libX11/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
              "${MINGW_PACKAGE_PREFIX}-kbproto"
              "${MINGW_PACKAGE_PREFIX}-inputproto"

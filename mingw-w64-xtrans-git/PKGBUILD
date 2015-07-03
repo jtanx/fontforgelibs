@@ -10,7 +10,9 @@ pkgdesc="X Network Transport layer shared code"
 arch=('any')
 url="http://cgit.freedesktop.org/xorg/lib/libxtrans/"
 license=("custom")
-makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-pkg-config"
+             "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libxtrans"

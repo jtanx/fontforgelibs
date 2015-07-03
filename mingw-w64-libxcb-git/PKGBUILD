@@ -11,6 +11,7 @@ arch=('any')
 url="http://cgit.freedesktop.org/xcb/libxcb/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-python2"
+             "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
              "${MINGW_PACKAGE_PREFIX}-xcb-proto"
              "${MINGW_PACKAGE_PREFIX}-libxau")

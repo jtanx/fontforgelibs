@@ -10,7 +10,9 @@ pkgdesc="X11 Input extension wire protocol"
 arch=('any')
 url="http://cgit.freedesktop.org/xorg/proto/inputproto/"
 license=("custom")
-makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
+makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-pkg-config"
+             "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/inputproto")

@@ -11,6 +11,7 @@ arch=('any')
 url="http://cgit.freedesktop.org/xorg/lib/libXft/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
              "${MINGW_PACKAGE_PREFIX}-libxrender"
              "${MINGW_PACKAGE_PREFIX}-fontconfig")
