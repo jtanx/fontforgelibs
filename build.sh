@@ -36,29 +36,28 @@ PACKAGES=(
     mingw-w64-libxext-git
     mingw-w64-libxrender-git
     mingw-w64-libxft-git
-    
-    #mingw-w64-cairo-x11
-    #mingw-w64-pango-x11
+    mingw-w64-cairo-x11
+    mingw-w64-pango-x11
 )
 
 # Colourful text
 # Red text
 function log_error() {
-    echo -e "\e[31m$@\e[0m"
+    echo -ne "\e[31m"; echo "$@"; echo -ne "\e[0m"
 }
 
 # Yellow text
 function log_status() {
-    echo -e "\e[33m$@\e[0m"
+    echo -ne "\e[33m"; echo "$@"; echo -ne "\e[0m"
 }
 
 # Green text
 function log_note() {
-    echo -e "\e[32m$@\e[0m"
+    echo -ne "\e[32m"; echo "$@"; echo -ne "\e[0m"
 }
 
 function bail () {
-    echo -e "\e[31m\e[1m!!! Build failed at: ${@}\e[0m"
+    echo -ne "\e[31m\e[1m"; echo "!!! Build failed at: ${@}"; echo -ne "\e[0m"
     exit 1
 }
 
@@ -68,7 +67,7 @@ for dir in ${PACKAGES[*]}; do
     else
         log_note "Building $dir"
         cd $dir
-        makepkg-mingw -sLfci --noconfirm  || bail "Failed to build $dir"
+        makepkg-mingw -sLfci --noconfirm --noprogressbar || bail "Failed to build $dir"
         cd $BASE
     fi
 done

@@ -1,0 +1,59 @@
+platform:
+  - x64
+branches:
+  only:
+  - master
+clone_depth: 10
+environment:
+  global:
+    MSYS2_BASEVER: 20150512
+    MSYSTEM: MSYS
+    MBASH: msys64\usr\bin\sh --login -c
+    PMOPTS: -S --needed --noconfirm --noprogressbar
+    REPOMSYS: >
+      Server = https://www2.futureware.at/~nickoe/msys2-mirror/msys2-$arch\n
+      Server = http://downloads.sourceforge.net/project/msys2/REPOS/MSYS2/$arch\n
+    REPOMINGW32: >
+      Server = https://www2.futureware.at/~nickoe/msys2-mirror/mingw32\n
+      Server = http://downloads.sourceforge.net/project/msys2/REPOS/MINGW/i686\n
+    REPOMINGW64: >
+      Server = https://www2.futureware.at/~nickoe/msys2-mirror/mingw64\n
+      Server = http://downloads.sourceforge.net/project/msys2/REPOS/MINGW/x86_64\n
+  matrix:
+    - MINGW_INSTALLS: mingw32
+      MBITS: 32
+      MPREF: i686
+    - MINGW_INSTALLS: mingw64
+      MBITS: 64
+      MPREF: x86_64
+
+cache:
+  - '%APPVEYOR_BUILD_FOLDER%\msys2.tar.xz -> .appveyor.yml'
+  - '%APPVEYOR_BUILD_FOLDER%\msys64\var\cache\pacman\pkg'
+install:
+  - if not exist msys2.tar.xz appveyor DownloadFile "http://kent.dl.sourceforge.net/project/msys2/Base/x86_64/msys2-base-x86_64-%MSYS2_BASEVER%.tar.xz" -FileName "msys2.tar.xz"
+  - 7z x msys2.tar.xz
+  - 7z x msys2.tar > NUL
+  - call %MBASH% ""
+  - call %MBASH% "pacman -Sy; pacman $PMOPTS bash pacman pacman-mirrors msys2-runtime"
+  - call %MBASH% "echo -e $REPOMSYS > /etc/pacman.d/mirrorlist.msys"
+  - call %MBASH% "echo -e $REPOMINGW32 > /etc/pacman.d/mirrorlist.mingw32"
+  - call %MBASH% "echo -e $REPOMINGW64 > /etc/pacman.d/mirrorlist.mingw64"
+  - call %MBASH% "echo -e $REPOFFLIB >> /etc/pacman.conf"
+  - call %MBASH% "pacman -Syu --noconfirm"
+  - call %MBASH% "pacman $PMOPTS diffutils findutils make patch tar automake autoconf"
+  - call %MBASH% "pacman $PMOPTS mingw-w64-$MPREF-{gcc,libtool}"
+  - call %MBASH% "pacman $PMOPTS mingw-w64-$MPREF-python2"
+  - call %MBASH% "rm -rf /mingw$MBITS/include/X11"
+  - call %MBASH% "pacman $PMOPTS mingw-w64-$MPREF-freetype"
+  - call %MBASH% "pacman -Rdd --noconfirm mingw-w64-$MPREF-cairo"
+  - call %MBASH% "mkdir -p /mingw$MBITS/pkg"
+  - call %MBASH% "echo 'PACKAGER=""Jeremy Tan <jtanx@outlook.com>""' >> /etc/makepkg_mingw$MBITS.conf"
+  - call %MBASH% "echo 'PKGDEST=/mingw%MBITS%/pkg' >> /etc/makepkg_mingw$MBITS.conf"
+build_script:
+  - call %MBASH% "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; ./build.sh"
+  - call %MBASH% "pacman -Sc --noconfirm"
+test: off
+artifacts:
+  - path: msys64\mingw$(MBITS)\pkg\*.xz
+    name: fontforgelibs$(MBITS)
