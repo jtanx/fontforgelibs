@@ -1,7 +1,7 @@
 #!/bin/bash
 # To update repo databases:
-# repo-add --verify --sign --new ./fontforgelibs32.db.tar.gz *.xz
-# repo-add --verify --sign --new ./fontforgelibs64.db.tar.gz *.xz
+# repo-add --verify --sign --new --remove ./fontforgelibs32.db.tar.gz *.xz
+# repo-add --verify --sign --new --remove ./fontforgelibs64.db.tar.gz *.xz
 #
 # To add repo:
 # Append to /etc/pacman.conf:
@@ -36,8 +36,8 @@ PACKAGES=(
     mingw-w64-libxext-git
     mingw-w64-libxrender-git
     mingw-w64-libxft-git
-    mingw-w64-cairo-x11
-    mingw-w64-pango-x11
+    #mingw-w64-cairo-x11
+    #mingw-w64-pango-x11
 )
 
 # Colourful text
@@ -62,13 +62,27 @@ function bail () {
 }
 
 for dir in ${PACKAGES[*]}; do
+    cd $BASE
+    
     if [ ! -d $dir ]; then
         bail "$dir doesn't exist"
     else
         log_note "Building $dir"
         cd $dir
+        
+        source PKGBUILD
+        if [[ $pkgname == *"-git" ]]; then
+            remotever=`git ls-remote $url master | cut -c 1-7`
+            gitver=${pkgver##*.}
+            
+            if [ "$gitver" != "$remotever" ]; then
+                log_status "Updating ${_realname} ($remotever...$gitver)..."
+            else
+                log_status "${_realname} is up to date, skipping..."
+                continue
+            fi
+        fi
         makepkg-mingw -sLfci --noconfirm --noprogressbar || bail "Failed to build $dir"
-        cd $BASE
     fi
 done
 
