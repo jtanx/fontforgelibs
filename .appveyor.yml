@@ -8,17 +8,8 @@ environment:
   global:
     MSYS2_BASEVER: 20150512
     MSYSTEM: MSYS
-    MBASH: msys64\usr\bin\sh --login -c
+    MBASH: msys64\usr\bin\sh -lc
     PMOPTS: -S --needed --noconfirm --noprogressbar
-    REPOMSYS: >
-      Server = https://www2.futureware.at/~nickoe/msys2-mirror/msys2-$arch\n
-      Server = http://downloads.sourceforge.net/project/msys2/REPOS/MSYS2/$arch\n
-    REPOMINGW32: >
-      Server = https://www2.futureware.at/~nickoe/msys2-mirror/mingw32\n
-      Server = http://downloads.sourceforge.net/project/msys2/REPOS/MINGW/i686\n
-    REPOMINGW64: >
-      Server = https://www2.futureware.at/~nickoe/msys2-mirror/mingw64\n
-      Server = http://downloads.sourceforge.net/project/msys2/REPOS/MINGW/x86_64\n
   matrix:
     - MINGW_INSTALLS: mingw32
       MBITS: 32
@@ -36,9 +27,6 @@ install:
   - 7z x msys2.tar > NUL
   - call %MBASH% ""
   - call %MBASH% "pacman -Sy; pacman $PMOPTS bash pacman pacman-mirrors msys2-runtime"
-  - call %MBASH% "echo -e $REPOMSYS > /etc/pacman.d/mirrorlist.msys"
-  - call %MBASH% "echo -e $REPOMINGW32 > /etc/pacman.d/mirrorlist.mingw32"
-  - call %MBASH% "echo -e $REPOMINGW64 > /etc/pacman.d/mirrorlist.mingw64"
   - call %MBASH% "echo -e $REPOFFLIB >> /etc/pacman.conf"
   - call %MBASH% "pacman -Syu --noconfirm"
   - call %MBASH% "pacman $PMOPTS diffutils findutils make patch tar automake autoconf"

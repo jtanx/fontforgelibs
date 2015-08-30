@@ -2,7 +2,7 @@
 
 _realname=pango
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-x11"
-pkgver=1.37.1
+pkgver=1.37.3
 pkgrel=1
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}=$pkgver-$pkgrel")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
