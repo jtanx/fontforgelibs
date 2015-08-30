@@ -10,6 +10,11 @@ environment:
     MSYSTEM: MSYS
     MBASH: msys64\usr\bin\sh -lc
     PMOPTS: -S --needed --noconfirm --noprogressbar
+    REPOFFLIB: >
+      \n[fontforgelibs32]\n
+      Server = http://downloads.sourceforge.net/project/fontforgebuilds/build-system-extras/fontforgelibs/i686\n
+      [fontforgelibs64]\n
+      Server = http://downloads.sourceforge.net/project/fontforgebuilds/build-system-extras/fontforgelibs/x86_64\n
   matrix:
     - MINGW_INSTALLS: mingw32
       MBITS: 32
@@ -26,6 +31,7 @@ install:
   - 7z x msys2.tar.xz
   - 7z x msys2.tar > NUL
   - call %MBASH% ""
+  - call %MBASH% "pacman-key -r 2E618C78; pacman-key --lsign-key 2E618C78;"
   - call %MBASH% "pacman -Sy; pacman $PMOPTS bash pacman pacman-mirrors msys2-runtime"
   - call %MBASH% "echo -e $REPOFFLIB >> /etc/pacman.conf"
   - call %MBASH% "pacman -Syu --noconfirm"

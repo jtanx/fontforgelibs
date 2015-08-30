@@ -14,6 +14,7 @@ makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-python
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros"
              "${MINGW_PACKAGE_PREFIX}-xcb-proto"
+             "${MINGW_PACKAGE_PREFIX}-xtrans"
              "${MINGW_PACKAGE_PREFIX}-libxau")
 options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-xcb-proto" "${MINGW_PACKAGE_PREFIX}-libxau")
