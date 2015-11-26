@@ -6,7 +6,7 @@ branches:
 clone_depth: 10
 environment:
   global:
-    MSYS2_BASEVER: 20150512
+    MSYS2_BASEVER: 20150916
     MSYSTEM: MSYS
     MBASH: msys64\usr\bin\sh -lc
     PMOPTS: -S --needed --noconfirm --noprogressbar
@@ -23,16 +23,16 @@ environment:
       MBITS: 64
       MPREF: x86_64
 
-cache:
-  - '%APPVEYOR_BUILD_FOLDER%\msys2.tar.xz -> .appveyor.yml'
-  - '%APPVEYOR_BUILD_FOLDER%\msys64\var\cache\pacman\pkg'
+#cache:
+#  - '%APPVEYOR_BUILD_FOLDER%\msys2.tar.xz -> .appveyor.yml'
+#  - '%APPVEYOR_BUILD_FOLDER%\msys64\var\cache\pacman\pkg'
 install:
   - if not exist msys2.tar.xz appveyor DownloadFile "http://kent.dl.sourceforge.net/project/msys2/Base/x86_64/msys2-base-x86_64-%MSYS2_BASEVER%.tar.xz" -FileName "msys2.tar.xz"
   - 7z x msys2.tar.xz
   - 7z x msys2.tar > NUL
   - call %MBASH% ""
   - call %MBASH% "pacman-key -r 2E618C78; pacman-key --lsign-key 2E618C78;"
-  - call %MBASH% "pacman -Sy; pacman $PMOPTS bash pacman pacman-mirrors msys2-runtime"
+  - call %MBASH% "update-core"
   - call %MBASH% "echo -e $REPOFFLIB >> /etc/pacman.conf"
   - call %MBASH% "pacman -Syu --noconfirm"
   - call %MBASH% "pacman $PMOPTS diffutils findutils make patch tar automake autoconf"
