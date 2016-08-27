@@ -36,8 +36,8 @@ PACKAGES=(
     mingw-w64-libxext-git
     mingw-w64-libxrender-git
     mingw-w64-libxft-git
-    #mingw-w64-cairo-x11
-    #mingw-w64-pango-x11
+    mingw-w64-cairo-x11
+    mingw-w64-pango-x11
 )
 
 # Colourful text
@@ -75,7 +75,8 @@ for dir in ${PACKAGES[*]}; do
             remotever=`git ls-remote $url master | cut -c 1-7`
             gitver=${pkgver##*.}
             
-            if [ "$gitver" != "$remotever" ]; then
+            #if [ "$gitver" != "$remotever" ]; then
+            if true; then
                 log_status "Updating ${_realname} ($remotever...$gitver)..."
             else
                 log_status "${_realname} is up to date, skipping..."
@@ -83,6 +84,7 @@ for dir in ${PACKAGES[*]}; do
             fi
         fi
         makepkg-mingw -sLfci --noconfirm --noprogressbar || bail "Failed to build $dir"
+        pacman -U --force --noconfirm *any.pkg.tar.xz
     fi
 done
 

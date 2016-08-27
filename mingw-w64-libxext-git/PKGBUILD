@@ -4,7 +4,7 @@ _realname=libxext
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=r198.efdcbb7
+pkgver=r202.490a25e
 pkgrel=1
 pkgdesc="X11 miscellaneous extensions library"
 arch=('any')
@@ -20,7 +20,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-xextproto"
          "${MINGW_PACKAGE_PREFIX}-libx11")
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXext"
         "0001-libxext.patch")
-md5sums=('SKIP' '929224bb6ea90f6f91b733873e835d31')
+sha256sums=('SKIP' 'e3ef214bf7904b0fc3f134eb3f267ab45336ee97f4355310f9aee348c9469370')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -43,7 +43,7 @@ build() {
     --target=${MINGW_CHOST} \
     --enable-static \
     --enable-shared
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

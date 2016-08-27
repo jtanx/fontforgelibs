@@ -19,7 +19,7 @@ options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-renderproto"
          "${MINGW_PACKAGE_PREFIX}-libx11")
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXrender")
-md5sums=('SKIP')
+sha256sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -41,7 +41,7 @@ build() {
     --target=${MINGW_CHOST} \
     --enable-static \
     --enable-shared
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

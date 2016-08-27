@@ -2,7 +2,7 @@
 
 _realname=cairo
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-x11"
-pkgver=1.14.2
+pkgver=1.14.6
 pkgrel=1
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}=$pkgver-$pkgrel")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
@@ -43,7 +43,7 @@ source=("http://cairographics.org/releases/cairo-${pkgver}.tar.xz"
         0030-difference-macro.mingw.patch
         0040-bool-to-winbool.mingw.patch
         0050-threading.mingw.patch)
-sha1sums=('c8da68aa66ca0855b5d0ff552766d3e8679e1d24'
+sha1sums=('0a59324e6cbe031b5b898ff8b9e2ffceb9d114f5'
           '58c548d2791ba20dd7f6e328ff596f746df3aa10'
           'b4b8c6f4931814e7e77ddeb98fecaf70cb807e04'
           'fa601d6d2b2c75b0b1608ab3fa9c2e5b6cc31c9e'
@@ -93,7 +93,7 @@ build() {
     --disable-svg \
     --disable-silent-rules \
 
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

@@ -4,7 +4,7 @@ _realname=x11proto
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=r249.d5524e2
+pkgver=r253.3e975a3
 pkgrel=1
 pkgdesc="X11 core wire protocol and auxiliary headers"
 arch=('any')
@@ -17,7 +17,7 @@ options=()
 depends=()
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/x11proto"
         "0001-x11proto.patch")
-md5sums=('SKIP' '2e32a5f08109917dd632252b7ba3b828')
+sha256sums=('SKIP' '06347c227bed9776d955b2b8e9e812441c7baa75528e79c6e80cf014221358a0')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -38,7 +38,7 @@ build() {
     --build=${MINGW_CHOST} \
     --host=${MINGW_CHOST} \
     --target=${MINGW_CHOST} 
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

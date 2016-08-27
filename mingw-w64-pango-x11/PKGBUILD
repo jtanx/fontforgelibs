@@ -2,7 +2,7 @@
 
 _realname=pango
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-x11"
-pkgver=1.37.3
+pkgver=1.40.1
 pkgrel=1
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}=$pkgver-$pkgrel")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
@@ -23,7 +23,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-gcc-libs"
 )
 options=('strip' 'staticlibs')
 source=("http://ftp.gnome.org/pub/gnome/sources/pango/${pkgver:0:4}/${_realname}-${pkgver}.tar.xz")
-sha256sums=('6faad8b5c347cccd454dc9ac9365f921c430e5f79787cfb2f51d5709f4394e3c')
+sha256sums=('e27af54172c72b3ac6be53c9a4c67053e16c905e02addcf3a603ceb2005c1a40')
 
 prepare() {
     echo
@@ -42,7 +42,7 @@ build() {
     --with-xft \
     --with-cairo
 
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

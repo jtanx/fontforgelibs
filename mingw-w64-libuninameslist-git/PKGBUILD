@@ -4,7 +4,7 @@ _realname=libuninameslist
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=r65.eb8e919
+pkgver=r72.9ac45db
 pkgrel=1
 pkgdesc="Library of Unicode annotation data."
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-gcc" "git")
 options=(strip staticlibs)
 depends=()
 source=("${_realname}"::"git+https://github.com/fontforge/libuninameslist")
-md5sums=('SKIP')
+sha256sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -36,7 +36,7 @@ build() {
     --target=${MINGW_CHOST} \
     --enable-static \
     --enable-shared
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

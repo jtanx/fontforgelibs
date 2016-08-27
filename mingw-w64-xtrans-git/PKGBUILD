@@ -4,7 +4,7 @@ _realname=xtrans
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=r240.7cbad9f
+pkgver=r248.3810e02
 pkgrel=1
 pkgdesc="X Network Transport layer shared code"
 arch=('any')
@@ -17,7 +17,7 @@ options=()
 depends=()
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libxtrans"
         "0001-xtrans.patch")
-md5sums=('SKIP' '1241fce067064c1c049b5329033182a4')
+sha256sums=('SKIP' 'e01891d762a50ef543d7acfbad91d68dbd17ab0ebc303f6840a6164599d521e1')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -38,7 +38,7 @@ build() {
     --build=${MINGW_CHOST} \
     --host=${MINGW_CHOST} \
     --target=${MINGW_CHOST} 
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

@@ -4,7 +4,7 @@ _realname=libxcb
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=r645.b15c96f
+pkgver=r657.65b298c
 pkgrel=1
 pkgdesc="The X C Binding (XCB) library"
 arch=('any')
@@ -20,7 +20,7 @@ options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-xcb-proto" "${MINGW_PACKAGE_PREFIX}-libxau")
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xcb/libxcb"
         "0001-libxcb.patch")
-md5sums=('SKIP' 'a537153160d586f7c85aed249be03fe4')
+sha256sums=('SKIP' '643cc333fce43f48e28ee6244d7c88d8d9f931fb2edc3be27a2b1aa4edbacbac')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -68,7 +68,7 @@ build() {
     --disable-xtest \
     --disable-xv \
     --disable-xvmc
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

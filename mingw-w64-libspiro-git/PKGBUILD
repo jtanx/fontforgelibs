@@ -4,7 +4,7 @@ _realname=libspiro
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=r82.edfab0f
+pkgver=r97.06af4df
 pkgrel=1
 pkgdesc="Simplifies the drawing of beautiful curves."
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-gcc" "git")
 options=(strip staticlibs)
 depends=()
 source=("${_realname}"::"git+https://github.com/fontforge/libspiro")
-md5sums=('SKIP')
+sha256sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -36,7 +36,7 @@ build() {
     --target=${MINGW_CHOST} \
     --enable-static \
     --enable-shared
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

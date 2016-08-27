@@ -16,7 +16,7 @@ makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
 options=()
 depends=()
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/xf86bigfontproto")
-md5sums=('SKIP')
+sha256sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -36,7 +36,7 @@ build() {
     --build=${MINGW_CHOST} \
     --host=${MINGW_CHOST} \
     --target=${MINGW_CHOST} 
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {

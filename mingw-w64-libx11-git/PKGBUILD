@@ -4,7 +4,7 @@ _realname=libx11
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=r1270.26e0d2d
+pkgver=r1302.78851f6
 pkgrel=1
 pkgdesc="X11 client-side library"
 arch=('any')
@@ -26,7 +26,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-kbproto"
          "${MINGW_PACKAGE_PREFIX}-libxcb")
 source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libX11"
         "0001-libx11.patch")
-md5sums=('SKIP' 'bdaa5a40bb8835b590fb7c5540553672')
+sha256sums=('SKIP' 'a1003034cbc95b17eb606f57f0338a1a5fe3cc2e7ad27c3dc7a72d840f2d0268')
 
 pkgver() {
   cd "$srcdir/$_realname"
@@ -51,7 +51,7 @@ build() {
     --enable-shared \
     --disable-ipv6 \
     --enable-xlocaledir
-  make
+  make -j$(($(nproc)+1))
 }
 
 package() {
