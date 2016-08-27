@@ -1,7 +1,16 @@
 #!/bin/bash
+# To manually sign packages:
+# for fn in *.xz; do gpg --detach-sign --no-armor $fn; done
+#
 # To update repo databases:
 # repo-add --verify --sign --new --remove ./fontforgelibs32.db.tar.gz *.xz
 # repo-add --verify --sign --new --remove ./fontforgelibs64.db.tar.gz *.xz
+#
+# To update SourceForge:
+# cd into folder containing repo
+# rsync -avP --delete ./ username@frs.sourceforge.net:/home/pfs/p/fontforgebuilds/build-system-extras/fontforgelibs/i686
+# rsync -avP --delete ./ username@frs.sourceforge.net:/home/pfs/p/fontforgebuilds/build-system-extras/fontforgelibs/x86_64
+# USE WITH CARE
 #
 # To add repo:
 # Append to /etc/pacman.conf:
@@ -12,8 +21,8 @@
 # Server = http://downloads.sourceforge.net/project/fontforgebuilds/build-system-extras/fontforgelibs/x86_64
 #
 # Add signature to key chain:
-# pacman-key -r 2E618C78
-# pacman-key --lsign-key 2E618C78
+# pacman-key -r 90F90C4A
+# pacman-key --lsign-key 90F90C4A
 
 
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -84,7 +93,7 @@ for dir in ${PACKAGES[*]}; do
             fi
         fi
         makepkg-mingw -sLfci --noconfirm --noprogressbar || bail "Failed to build $dir"
-        pacman -U --force --noconfirm *any.pkg.tar.xz
+        #pacman -U --force --noconfirm *any.pkg.tar.xz
     fi
 done
 

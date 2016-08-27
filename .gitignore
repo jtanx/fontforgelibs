@@ -4,6 +4,7 @@
 *.sig
 src/
 pkg/
+pkgrel/
 buildlog.txt
 
 mingw-w64-inputproto-git/inputproto/
