@@ -7,3 +7,13 @@ MSYS2 repository.
 At present, this repository contains `libspiro`, `libuninameslist`, the
 X11 suite of libraries and versions of Cairo and Pango that have been compiled
 with X11 support.
+
+## Repos
+Currently, builds are uploaded to two repos:
+* https://dl.bintray.com/jtanx/fontforgelibs/  --
+    * https://dl.bintray.com/jtanx/fontforgelibs/fontforgelibs32/
+    * https://dl.bintray.com/jtanx/fontforgelibs/fontforgelibs64/
+    * https://dl.bintray.com/jtanx/fontforgelibs/build-system-extras/
+* https://sourceforge.net/projects/fontforgebuilds/files/build-system-extras/ --
+    * https://sourceforge.net/projects/fontforgebuilds/files/build-system-extras/fontforgelibs/i686/
+    * https://sourceforge.net/projects/fontforgebuilds/files/build-system-extras/fontforgelibs/x86_64/
