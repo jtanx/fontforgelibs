@@ -2,7 +2,7 @@
 
 _realname=cairo
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-x11"
-pkgver=1.14.6
+pkgver=1.15.6
 pkgrel=1
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}=$pkgver-$pkgrel")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
@@ -35,18 +35,15 @@ depends=("${MINGW_PACKAGE_PREFIX}-gcc-libs"
         )
 optdepends=("${MINGW_PACKAGE_PREFIX}-glib2: libcairo-gobject")
 options=('strip' 'staticlibs')
-source=("http://cairographics.org/releases/cairo-${pkgver}.tar.xz"
+#source=("http://cairographics.org/releases/cairo-${pkgver}.tar.xz"
+source=("http://cairographics.org/snapshots/cairo-${pkgver}.tar.xz"
         0009-standalone-headers.mingw.patch
-        0013-mozilla-transparent-windows.all.patch
-        0022-dont-fail-argb-similar.all.patch
         0026-create-argb-fonts.all.patch
         0030-difference-macro.mingw.patch
         0040-bool-to-winbool.mingw.patch
         0050-threading.mingw.patch)
-sha1sums=('0a59324e6cbe031b5b898ff8b9e2ffceb9d114f5'
+sha1sums=('1a1724ecd012efeeaa43adee7094223227b61d90'
           '58c548d2791ba20dd7f6e328ff596f746df3aa10'
-          'b4b8c6f4931814e7e77ddeb98fecaf70cb807e04'
-          'fa601d6d2b2c75b0b1608ab3fa9c2e5b6cc31c9e'
           '9c0e533614782a41af2c3806a43ab7fe9d6a5431'
           'faaa1ecb09951b7893ccc98ac8e104462276d22f'
           '8a895d6cb5614e5916c89fa779704fbb60e1bedb'
@@ -54,10 +51,7 @@ sha1sums=('0a59324e6cbe031b5b898ff8b9e2ffceb9d114f5'
 
 prepare() {
   cd "${srcdir}"/${_realname}-${pkgver}
-  #patch -p1 -i ${srcdir}/0002-fix-using-strings.patch
   patch -p1 -i ${srcdir}/0009-standalone-headers.mingw.patch
-  patch -p1 -i ${srcdir}/0013-mozilla-transparent-windows.all.patch
-  patch -p1 -i ${srcdir}/0022-dont-fail-argb-similar.all.patch
   patch -p1 -i ${srcdir}/0026-create-argb-fonts.all.patch
   patch -p1 -i ${srcdir}/0030-difference-macro.mingw.patch
   patch -p1 -i ${srcdir}/0040-bool-to-winbool.mingw.patch

@@ -2,7 +2,7 @@
 
 _realname=pango
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-x11"
-pkgver=1.40.1
+pkgver=1.40.6
 pkgrel=1
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}=$pkgver-$pkgrel")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
@@ -23,7 +23,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-gcc-libs"
 )
 options=('strip' 'staticlibs')
 source=("http://ftp.gnome.org/pub/gnome/sources/pango/${pkgver:0:4}/${_realname}-${pkgver}.tar.xz")
-sha256sums=('e27af54172c72b3ac6be53c9a4c67053e16c905e02addcf3a603ceb2005c1a40')
+sha256sums=('ca152b7383a1e9f7fd74ae96023dc6770dc5043414793bfe768ff06b6759e573')
 
 prepare() {
     echo
