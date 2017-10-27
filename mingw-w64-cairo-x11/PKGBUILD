@@ -2,13 +2,13 @@
 
 _realname=cairo
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-x11"
-pkgver=1.15.6
+pkgver=1.15.8
 pkgrel=1
 provides=("${MINGW_PACKAGE_PREFIX}-${_realname}=$pkgver-$pkgrel")
 conflicts=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 pkgdesc="Cairo vector graphics library (mingw-w64)"
 arch=('any')
-url="http://cairographics.org"
+url="https://cairographics.org"
 license=(LGPL2.1 MPL1.1)
 makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-glib2"
@@ -35,19 +35,19 @@ depends=("${MINGW_PACKAGE_PREFIX}-gcc-libs"
         )
 optdepends=("${MINGW_PACKAGE_PREFIX}-glib2: libcairo-gobject")
 options=('strip' 'staticlibs')
-#source=("http://cairographics.org/releases/cairo-${pkgver}.tar.xz"
-source=("http://cairographics.org/snapshots/cairo-${pkgver}.tar.xz"
+#source=("https://cairographics.org/releases/cairo-${pkgver}.tar.xz"
+source=("https://cairographics.org/snapshots/cairo-${pkgver}.tar.xz"
         0009-standalone-headers.mingw.patch
         0026-create-argb-fonts.all.patch
         0030-difference-macro.mingw.patch
         0040-bool-to-winbool.mingw.patch
         0050-threading.mingw.patch)
-sha1sums=('1a1724ecd012efeeaa43adee7094223227b61d90'
-          '58c548d2791ba20dd7f6e328ff596f746df3aa10'
-          '9c0e533614782a41af2c3806a43ab7fe9d6a5431'
-          'faaa1ecb09951b7893ccc98ac8e104462276d22f'
-          '8a895d6cb5614e5916c89fa779704fbb60e1bedb'
-          'a16d98c4615c17716db06f4c28c28440045fde8c')
+sha256sums=('3224260a4f8e22e7ea95faf706ae111b974833dd74185be1db5ebc7618a98464'
+          '234de8c5d4c28b03c19e638a353e8defb2de0367a634c002b0ea7d2877bd0756'
+          '6db6c44fbdb4926d09afa978fe80430186c4b7b7d255059602b1f94c6a079975'
+          '5dae0a86dcc3ded3e09dd9dbd90a11c77ed5a7f151bece00c644b39df4182d94'
+          '49f9a748116a6ed9ee119a8eb0e5cb93577587051e142eae45c2886601401dd4'
+          '154a9e5d9ef443f964c8112be68ebba4950c02179890f02c7c0155be358a2c59')
 
 prepare() {
   cd "${srcdir}"/${_realname}-${pkgver}

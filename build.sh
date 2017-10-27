@@ -1,4 +1,7 @@
 #!/bin/bash
+# To update all the pkgvers without building:
+# for f in mingw-w64*git; do pushd $f; makepkg-mingw -o --noprepare; popd; done
+#
 # To manually sign packages:
 # for fn in *.xz; do gpg --detach-sign --no-armor $fn; done
 #
