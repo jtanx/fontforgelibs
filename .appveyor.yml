@@ -22,6 +22,8 @@ environment:
     - MINGW_INSTALLS: mingw64
       MBITS: 64
       MPREF: x86_64
+matrix:
+  fast_finish: true
 
 #cache:
 #  - '%APPVEYOR_BUILD_FOLDER%\msys2.tar.xz -> .appveyor.yml'
@@ -38,7 +40,7 @@ install:
 #  - call %MBASH% "pacman $PMOPTS mingw-w64-$MPREF-python2"
   - call %MBASH% "rm -rf /mingw$MBITS/include/X11"
   - call %MBASH% "pacman $PMOPTS mingw-w64-$MPREF-freetype"
-  - call %MBASH% "pacman -Rdd --noconfirm mingw-w64-$MPREF-cairo"
+  - call %MBASH% "pacman -Rdd --noconfirm mingw-w64-$MPREF-cairo || true"
   - call %MBASH% "mkdir -pv `cygpath -u ""$APPVEYOR_BUILD_FOLDER/mingw$MBITS/pkg""`"
   - call %MBASH% "echo 'PACKAGER=""Jeremy Tan <jtanx@outlook.com>""' >> /etc/makepkg_mingw$MBITS.conf"
   - call %MBASH% "echo 'PKGDEST=`cygpath -u ""$APPVEYOR_BUILD_FOLDER/mingw$MBITS/pkg""`' >> /etc/makepkg_mingw$MBITS.conf"
