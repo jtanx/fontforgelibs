@@ -6,8 +6,8 @@
 # for fn in *.xz; do gpg --detach-sign --no-armor $fn; done
 #
 # To update repo databases:
-# repo-add --verify --sign --new --remove ./fontforgelibs32.db.tar.gz *.xz
-# repo-add --verify --sign --new --remove ./fontforgelibs64.db.tar.gz *.xz
+# repo-add --verify --sign --new --remove ./fontforgelibs32.db.tar.xz *.xz
+# repo-add --verify --sign --new --remove ./fontforgelibs64.db.tar.xz *.xz
 #
 # To update SourceForge:
 # cd into folder containing repo
