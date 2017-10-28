@@ -8,7 +8,7 @@ pkgver=r205.a07b4bb
 pkgrel=1
 pkgdesc="X11 miscellaneous extensions library"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/lib/libXext/"
+url="https://cgit.freedesktop.org/xorg/lib/libXext/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
@@ -18,7 +18,7 @@ makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
 options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-xextproto"
          "${MINGW_PACKAGE_PREFIX}-libx11")
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXext"
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/lib/libXext.git"
         "0001-libxext.patch")
 sha256sums=('SKIP' 'e3ef214bf7904b0fc3f134eb3f267ab45336ee97f4355310f9aee348c9469370')
 

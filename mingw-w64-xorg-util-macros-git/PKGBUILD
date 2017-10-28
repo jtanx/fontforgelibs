@@ -8,12 +8,12 @@ pkgver=r198.39f07f7
 pkgrel=1
 pkgdesc="m4 macros for the Xorg packages"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/util/macros/"
+url="https://cgit.freedesktop.org/xorg/util/macros/"
 license=("The Open Group")
 makedepends=("git")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/util/macros")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/util/macros.git")
 sha256sums=('SKIP')
 
 pkgver() {

@@ -8,14 +8,14 @@ pkgver=r141.8b33dcc
 pkgrel=1
 pkgdesc="X11 various extension wire protocol"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/proto/xextproto/"
+url="https://cgit.freedesktop.org/xorg/proto/xextproto/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/xextproto")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/proto/xextproto.git")
 sha256sums=('SKIP')
 
 pkgver() {

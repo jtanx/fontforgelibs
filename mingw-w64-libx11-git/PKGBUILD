@@ -8,7 +8,7 @@ pkgver=r1342.e835a9dc
 pkgrel=1
 pkgdesc="X11 client-side library"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/lib/libX11/"
+url="https://cgit.freedesktop.org/xorg/lib/libX11/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
@@ -24,7 +24,7 @@ options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-kbproto"
          "${MINGW_PACKAGE_PREFIX}-x11proto"
          "${MINGW_PACKAGE_PREFIX}-libxcb")
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libX11"
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/lib/libX11.git"
         "0001-libx11.patch")
 sha256sums=('SKIP' 'a1003034cbc95b17eb606f57f0338a1a5fe3cc2e7ad27c3dc7a72d840f2d0268')
 

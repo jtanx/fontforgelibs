@@ -8,14 +8,14 @@ pkgver=r252.2836667
 pkgrel=1
 pkgdesc="X Network Transport layer shared code"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/lib/libxtrans/"
+url="https://cgit.freedesktop.org/xorg/lib/libxtrans/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libxtrans"
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/lib/libxtrans.git"
         "0001-xtrans.patch")
 sha256sums=('SKIP' 'e01891d762a50ef543d7acfbad91d68dbd17ab0ebc303f6840a6164599d521e1')
 

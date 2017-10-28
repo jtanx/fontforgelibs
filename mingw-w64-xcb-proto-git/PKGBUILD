@@ -8,14 +8,14 @@ pkgver=r482.9df4ead
 pkgrel=1
 pkgdesc="XML-XCB protocol descriptions"
 arch=('any')
-url="http://cgit.freedesktop.org/xcb/proto/"
+url="https://cgit.freedesktop.org/xcb/proto/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xcb/proto")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xcb/proto.git")
 sha256sums=('SKIP')
 
 pkgver() {

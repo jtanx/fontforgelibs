@@ -8,14 +8,14 @@ pkgver=r266.ab86666
 pkgrel=1
 pkgdesc="X11 core wire protocol and auxiliary headers"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/proto/x11proto/"
+url="https://cgit.freedesktop.org/xorg/proto/x11proto/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/x11proto"
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/proto/x11proto.git"
         "0001-x11proto.patch")
 sha256sums=('SKIP' '06347c227bed9776d955b2b8e9e812441c7baa75528e79c6e80cf014221358a0')
 

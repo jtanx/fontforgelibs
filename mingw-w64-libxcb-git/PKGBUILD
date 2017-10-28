@@ -8,7 +8,7 @@ pkgver=r665.a3e9821
 pkgrel=1
 pkgdesc="The X C Binding (XCB) library"
 arch=('any')
-url="http://cgit.freedesktop.org/xcb/libxcb/"
+url="https://cgit.freedesktop.org/xcb/libxcb/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-python2"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
@@ -18,7 +18,7 @@ makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc" "${MINGW_PACKAGE_PREFIX}-python
              "${MINGW_PACKAGE_PREFIX}-libxau")
 options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-xcb-proto" "${MINGW_PACKAGE_PREFIX}-libxau")
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xcb/libxcb"
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xcb/libxcb.git"
         "0001-libxcb.patch")
 sha256sums=('SKIP' '643cc333fce43f48e28ee6244d7c88d8d9f931fb2edc3be27a2b1aa4edbacbac')
 

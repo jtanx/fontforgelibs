@@ -8,14 +8,14 @@ pkgver=r398.c6d1092
 pkgrel=1
 pkgdesc="X11 Input extension wire protocol"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/proto/inputproto/"
+url="https://cgit.freedesktop.org/xorg/proto/inputproto/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/inputproto")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/proto/inputproto.git")
 sha256sums=('SKIP')
 
 pkgver() {

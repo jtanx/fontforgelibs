@@ -8,7 +8,7 @@ pkgver=r82.f4f32f1
 pkgrel=1
 pkgdesc="X Rendering Extension client library"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/lib/libXrender/"
+url="https://cgit.freedesktop.org/xorg/lib/libXrender/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
@@ -18,7 +18,7 @@ makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
 options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-renderproto"
          "${MINGW_PACKAGE_PREFIX}-libx11")
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXrender")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/lib/libXrender.git")
 sha256sums=('SKIP')
 
 pkgver() {

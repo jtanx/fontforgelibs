@@ -8,7 +8,7 @@ pkgver=r102.c418dc7
 pkgrel=1
 pkgdesc="FreeType-based font drawing library for X"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/lib/libXft/"
+url="https://cgit.freedesktop.org/xorg/lib/libXft/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
@@ -18,7 +18,7 @@ makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
 options=(strip staticlibs)
 depends=("${MINGW_PACKAGE_PREFIX}-libxrender"
          "${MINGW_PACKAGE_PREFIX}-fontconfig")
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/lib/libXft"
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/lib/libXft.git"
         "0001-libxft.patch")
 sha256sums=('SKIP' 'df831f8f3d4c95625a11e8410e8629d040d94c5cc8a1ba19d6d3b79b028953b4')
 

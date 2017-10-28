@@ -8,14 +8,14 @@ pkgver=r74.bbb10a9
 pkgrel=1
 pkgdesc="X.Org Render protocol headers"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/proto/renderproto/"
+url="https://cgit.freedesktop.org/xorg/proto/renderproto/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/renderproto")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/proto/renderproto.git")
 sha256sums=('SKIP')
 
 pkgver() {

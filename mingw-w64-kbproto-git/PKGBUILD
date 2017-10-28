@@ -8,14 +8,14 @@ pkgver=r73.19c59f3
 pkgrel=1
 pkgdesc="X11 XKB extension wire protocol"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/proto/kbproto/"
+url="https://cgit.freedesktop.org/xorg/proto/kbproto/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/kbproto")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/proto/kbproto.git")
 sha256sums=('SKIP')
 
 pkgver() {

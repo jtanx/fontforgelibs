@@ -8,14 +8,14 @@ pkgver=r41.6f0e61b
 pkgrel=1
 pkgdesc="X11 Big Fonts extension wire protocol"
 arch=('any')
-url="http://cgit.freedesktop.org/xorg/proto/xf86bigfontproto/"
+url="https://cgit.freedesktop.org/xorg/proto/xf86bigfontproto/"
 license=("custom")
 makedepends=("git" "${MINGW_PACKAGE_PREFIX}-gcc"
              "${MINGW_PACKAGE_PREFIX}-pkg-config"
              "${MINGW_PACKAGE_PREFIX}-xorg-util-macros")
 options=()
 depends=()
-source=("${_realname}"::"git+git://anongit.freedesktop.org/xorg/proto/xf86bigfontproto")
+source=("${_realname}"::"git+https://anongit.freedesktop.org/git/xorg/proto/xf86bigfontproto.git")
 sha256sums=('SKIP')
 
 pkgver() {
