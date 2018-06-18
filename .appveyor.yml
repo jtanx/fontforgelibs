@@ -46,8 +46,11 @@ install:
   - call %MBASH% "echo 'PKGDEST=`cygpath -u ""$APPVEYOR_BUILD_FOLDER/mingw$MBITS/pkg""`' >> /etc/makepkg_mingw$MBITS.conf"
 build_script:
   - call %MBASH% "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; ./build.sh"
+  - call %MBASH% "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; git diff >diff.patch"
   - call %MBASH% "pacman -Sc --noconfirm"
 test: off
 artifacts:
   - path: mingw$(MBITS)\pkg\*.xz
     name: fontforgelibs$(MBITS)
+  - path: .
+    name: diff.patch
